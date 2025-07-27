@@ -5,7 +5,7 @@ import pandas as pd
 import onnxruntime as ort
 from sklearn.metrics import (
     classification_report, accuracy_score, f1_score,
-    confusion_matrix, roc_curve, auc, precision_score, recall_score
+    confusion_matrix, precision_score, recall_score
 )
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -121,21 +121,6 @@ plt.ylabel("True Label")
 plt.title("Confusion Matrix")
 plt.tight_layout()
 plt.show()
-
-# ===== ROC (nếu binary classification) =====
-if len(label_set) == 2 and y_scores is not None:
-    fpr, tpr, _ = roc_curve(y_true, y_scores)
-    roc_auc = auc(fpr, tpr)
-
-    plt.figure()
-    plt.plot(fpr, tpr, label=f"ROC (AUC = {roc_auc:.2f})")
-    plt.plot([0, 1], [0, 1], 'k--')
-    plt.xlabel("False Positive Rate")
-    plt.ylabel("True Positive Rate")
-    plt.title("ROC Curve")
-    plt.legend()
-    plt.grid(True)
-    plt.show()
 
 # ===== Lưu kết quả =====
 df_result.to_csv("test_labels_with_predictions_custom.csv", index=False)
